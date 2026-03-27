@@ -36,11 +36,11 @@ install:
 
 ## Remove installation
 uninstall:
-	rm -rf $$HOME/.local/share/mdviewer
-	rm -f  $$HOME/.local/bin/mdviewer
-	rm -f  $$HOME/.local/share/applications/mdviewer.desktop
+	rm -rf $$HOME/.local/share/marka
+	rm -f  $$HOME/.local/bin/marka
+	rm -f  $$HOME/.local/share/applications/marka.desktop
 	update-desktop-database $$HOME/.local/share/applications 2>/dev/null || true
-	@echo "MD Viewer uninstalled."
+	@echo "Marka uninstalled."
 
 ## Remove .pyc files and __pycache__
 clean:
@@ -49,7 +49,7 @@ clean:
 
 ## Show help
 help:
-	@echo "MD Viewer — Makefile targets:"
+	@echo "Marka — Makefile targets:"
 	@echo "  make run        Run the app"
 	@echo "  make venv       Create Python venv"
 	@echo "  make deps       Install system dependencies (Ubuntu)"

@@ -1,13 +1,13 @@
 [Desktop Entry]
-Name=MD Viewer
+Name=Marka
 GenericName=Markdown Editor
 Comment=Lightweight Markdown viewer and editor for Linux
-Exec=python3 /opt/mdviewer/main.py %F
-Icon=text-editor
+Exec=marka %F
+Icon=io.github.hemanth.Marka
 Terminal=false
 Type=Application
 Categories=GNOME;GTK;Utility;TextEditor;
 MimeType=text/markdown;text/x-markdown;
 Keywords=markdown;editor;viewer;text;md;
 StartupNotify=true
-StartupWMClass=org.gnome.MDViewer
+StartupWMClass=io.github.hemanth.Marka

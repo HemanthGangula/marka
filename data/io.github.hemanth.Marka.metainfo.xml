@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.gnome.MDViewer</id>
+  <id>io.github.hemanth.Marka</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
 
-  <name>MD Viewer</name>
+  <name>Marka</name>
   <summary>Lightweight Markdown viewer and editor</summary>
+
+  <developer id="io.github.hemanth">
+    <name>Hemanth</name>
+  </developer>
 
   <description>
     <p>
-      MD Viewer is a lightweight, native Linux Markdown viewer and editor built
+      Marka is a lightweight, native Linux Markdown viewer and editor built
       with GTK4 and libadwaita. It renders Markdown in real time with
       GitHub-style typography, supports syntax-highlighted code blocks via
       Pygments, and respects the system light/dark theme automatically.
@@ -29,21 +33,14 @@
     </ul>
   </description>
 
-  <launchable type="desktop-id">org.gnome.MDViewer.desktop</launchable>
+  <launchable type="desktop-id">io.github.hemanth.Marka.desktop</launchable>
 
-  <url type="homepage">https://github.com/gnome/md-viewer</url>
-  <url type="bugtracker">https://github.com/gnome/md-viewer/issues</url>
-  <url type="vcs-browser">https://github.com/gnome/md-viewer</url>
-
-  <screenshots>
-    <screenshot type="default">
-      <caption>Split-pane view with editor and live preview</caption>
-      <image>https://raw.githubusercontent.com/gnome/md-viewer/main/data/screenshots/main.png</image>
-    </screenshot>
-  </screenshots>
+  <url type="homepage">https://github.com/hemanth/marka</url>
+  <url type="bugtracker">https://github.com/hemanth/marka/issues</url>
+  <url type="vcs-browser">https://github.com/hemanth/marka</url>
 
   <releases>
-    <release version="1.0.0" date="2026-03-26">
+    <release version="1.0.0" date="2026-03-27">
       <description>
         <p>Initial stable release with full GTK4/libadwaita integration.</p>
       </description>
@@ -52,20 +49,15 @@
 
   <content_rating type="oars-1.1"/>
 
-  <supports>
-    <control>pointing</control>
-    <control>keyboard</control>
-  </supports>
-
-  <requires>
-    <display_length compare="ge">768</display_length>
-  </requires>
-
   <recommends>
     <control>pointing</control>
     <control>keyboard</control>
     <display_length compare="ge">1024</display_length>
   </recommends>
+
+  <requires>
+    <display_length compare="ge">768</display_length>
+  </requires>
 
   <categories>
     <category>Utility</category>

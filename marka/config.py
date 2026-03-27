@@ -1,4 +1,4 @@
-"""Window state persistence — reads/writes $XDG_CONFIG_HOME/mdviewer/settings.json.
+"""Window state persistence — reads/writes $XDG_CONFIG_HOME/marka/settings.json.
 
 Uses GLib.get_user_config_dir() so the path honours XDG_CONFIG_HOME rather
 than hard-coding ~/.config.
@@ -11,7 +11,7 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-_CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), "mdviewer")
+_CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), "marka")
 _CONFIG_FILE = os.path.join(_CONFIG_DIR, "settings.json")
 
 _DEFAULTS = {

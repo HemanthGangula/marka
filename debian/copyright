@@ -1,10 +1,10 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: md-viewer-gtk
-Upstream-Contact: MD Viewer Contributors <md-viewer@example.com>
-Source: https://github.com/gnome/md-viewer
+Upstream-Name: marka
+Upstream-Contact: Hemanth <hemanth@example.com>
+Source: https://github.com/hemanth/marka
 
 Files: *
-Copyright: 2024-2026 MD Viewer Contributors
+Copyright: 2026 Hemanth
 License: MIT
 
 License: MIT

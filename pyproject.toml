@@ -1,19 +1,19 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "md-viewer-gtk"
+name = "marka"
 version = "1.0.0"
 description = "Lightweight GTK4/libadwaita Markdown viewer and editor for Linux"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "MD Viewer Contributors" },
+    { name = "Hemanth" },
 ]
 keywords = ["markdown", "gtk4", "gnome", "editor", "viewer", "libadwaita"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: X11 Applications :: GTK",
     "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: MIT License",
@@ -32,18 +32,16 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/gnome/md-viewer"
-"Bug Tracker" = "https://github.com/gnome/md-viewer/issues"
+Homepage = "https://github.com/hemanth/marka"
+"Bug Tracker" = "https://github.com/hemanth/marka/issues"
+"Source Code" = "https://github.com/hemanth/marka"
 
 [project.scripts]
-mdviewer = "mdviewer.app:main"
-
-[project.gui-scripts]
-mdviewer-gui = "mdviewer.app:main"
+marka = "marka.app:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["mdviewer*"]
+include = ["marka*"]
 
 [tool.setuptools.package-data]
-mdviewer = ["py.typed"]
+marka = ["py.typed"]

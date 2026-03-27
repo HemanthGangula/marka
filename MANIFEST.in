@@ -1,7 +1,9 @@
 include README.md
+include LICENSE
 include requirements.txt
 include install.sh
-include mdviewer.desktop
+include marka.desktop
 recursive-include data *.xml *.svg *.png
 recursive-include packaging *.json *.yaml
 recursive-include debian *
+recursive-include tests *.py

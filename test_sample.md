@@ -1,4 +1,4 @@
-# MD Viewer — Feature Test
+# Marka — Feature Test
 
 ## Text Formatting
 
@@ -53,9 +53,9 @@ print(fibonacci(10))  # 55
 ```
 
 ```bash
-# Install MD Viewer
-pip install md-viewer-gtk
-mdviewer README.md
+# Install Marka
+pip install marka
+marka README.md
 ```
 
 ```javascript
@@ -119,7 +119,7 @@ libadwaita
 *[GTK]: GIMP Toolkit
 *[HIG]: Human Interface Guidelines
 
-MD Viewer uses GTK4 and follows the GNOME HIG for its user interface design.
+Marka uses GTK4 and follows the GNOME HIG for its user interface design.
 
 ## Smart Typography
 

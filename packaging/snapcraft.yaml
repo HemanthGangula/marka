@@ -1,9 +1,9 @@
-name: md-viewer-gtk
+name: marka
 base: core22
 version: '1.0.0'
 summary: Lightweight GTK4 Markdown viewer and editor
 description: |
-  MD Viewer is a lightweight, native Linux Markdown viewer and editor built
+  Marka is a lightweight, native Linux Markdown viewer and editor built
   with GTK4 and libadwaita. It renders Markdown in real time with GitHub-style
   typography, supports syntax-highlighted code blocks, and respects the system
   light/dark theme automatically.
@@ -24,19 +24,19 @@ layout:
     bind: $SNAP/usr/lib/python3/dist-packages
 
 apps:
-  md-viewer-gtk:
-    command: bin/mdviewer
+  marka:
+    command: bin/marka
     extensions: [gnome]
     plugs:
       - home
       - removable-media
       - network
-    desktop: usr/share/applications/org.gnome.MDViewer.desktop
+    desktop: usr/share/applications/io.github.hemanth.Marka.desktop
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/usr/local/lib/python3.10/dist-packages
 
 parts:
-  md-viewer:
+  marka:
     plugin: python
     source: ..
     python-requirements:
@@ -52,7 +52,7 @@ parts:
       - gir1.2-gtksource-5
     override-build: |
       craftctl default
-      install -Dm644 data/org.gnome.MDViewer.metainfo.xml \
-        $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/org.gnome.MDViewer.metainfo.xml
-      install -Dm644 mdviewer.desktop \
-        $SNAPCRAFT_PART_INSTALL/usr/share/applications/org.gnome.MDViewer.desktop
+      install -Dm644 data/io.github.hemanth.Marka.metainfo.xml \
+        $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/io.github.hemanth.Marka.metainfo.xml
+      install -Dm644 marka.desktop \
+        $SNAPCRAFT_PART_INSTALL/usr/share/applications/io.github.hemanth.Marka.desktop

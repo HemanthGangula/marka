@@ -1,4 +1,4 @@
-"""Main application window — MDViewerWindow."""
+"""Main application window — MarkaWindow."""
 
 import gi
 
@@ -6,18 +6,18 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio, GLib
 
-from mdviewer import APP_NAME, __version__
-from mdviewer.editor import EditorPane
-from mdviewer.preview import PreviewPane
-from mdviewer.renderer import MarkdownRenderer
-from mdviewer.status_bar import StatusBar
-from mdviewer.file_manager import FileManager
-from mdviewer.theme_manager import ThemeManager
-from mdviewer import config as _cfg
+from marka import APP_NAME, __version__
+from marka.editor import EditorPane
+from marka.preview import PreviewPane
+from marka.renderer import MarkdownRenderer
+from marka.status_bar import StatusBar
+from marka.file_manager import FileManager
+from marka.theme_manager import ThemeManager
+from marka import config as _cfg
 
 
-class MDViewerWindow(Adw.ApplicationWindow):
-    """Primary window for MD Viewer.
+class MarkaWindow(Adw.ApplicationWindow):
+    """Primary window for Marka.
 
     Hosts the editor pane, preview pane, status bar, header bar, find bar,
     and all window-level actions.
@@ -217,7 +217,7 @@ class MDViewerWindow(Adw.ApplicationWindow):
         menu.append_section(None, view_section)
 
         app_section = Gio.Menu()
-        app_section.append("About MD Viewer", "win.about")
+        app_section.append("About Marka", "win.about")
         app_section.append("Quit", "app.quit")
         menu.append_section(None, app_section)
 
@@ -324,7 +324,7 @@ class MDViewerWindow(Adw.ApplicationWindow):
         self._editor.set_line_numbers(not state)
 
     def _on_about(self, action, param):
-        from mdviewer.editor import HAS_SOURCE_VIEW
+        from marka.editor import HAS_SOURCE_VIEW
         sv_note = (
             "GtkSourceView 5 is active \u2014 full syntax highlighting enabled."
             if HAS_SOURCE_VIEW
@@ -334,7 +334,7 @@ class MDViewerWindow(Adw.ApplicationWindow):
         about = Adw.AboutDialog()
         about.set_application_name(APP_NAME)
         about.set_version(__version__)
-        about.set_developer_name("MD Viewer Contributors")
+        about.set_developer_name("Marka Contributors")
         about.set_comments(
             "A lightweight Markdown viewer and editor for Linux.\n\n" + sv_note
         )

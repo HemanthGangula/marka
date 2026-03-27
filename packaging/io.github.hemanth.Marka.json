@@ -1,14 +1,13 @@
 {
-  "app-id": "org.gnome.MDViewer",
+  "app-id": "io.github.hemanth.Marka",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "46",
+  "runtime-version": "47",
   "sdk": "org.gnome.Sdk",
-  "command": "mdviewer",
+  "command": "marka",
   "finish-args": [
-    "--share=ipc",
     "--socket=fallback-x11",
     "--socket=wayland",
-    "--filesystem=home",
+    "--filesystem=xdg-documents",
     "--talk-name=org.gtk.vfs.*",
     "--filesystem=xdg-run/gvfsd"
   ],
@@ -22,8 +21,8 @@
       "sources": [
         {
           "type": "file",
-          "url": "https://files.pythonhosted.org/packages/Markdown-3.6.tar.gz",
-          "sha256": "REPLACE_WITH_REAL_SHA256"
+          "url": "https://files.pythonhosted.org/packages/source/M/Markdown/Markdown-3.6.tar.gz",
+          "sha256": "ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"
         }
       ]
     },
@@ -36,19 +35,19 @@
       "sources": [
         {
           "type": "file",
-          "url": "https://files.pythonhosted.org/packages/pygments-2.18.0.tar.gz",
-          "sha256": "REPLACE_WITH_REAL_SHA256"
+          "url": "https://files.pythonhosted.org/packages/source/P/Pygments/pygments-2.18.0.tar.gz",
+          "sha256": "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
         }
       ]
     },
     {
-      "name": "md-viewer",
+      "name": "marka",
       "buildsystem": "simple",
       "build-commands": [
         "pip3 install --no-index --prefix=${FLATPAK_DEST} .",
-        "install -Dm644 data/org.gnome.MDViewer.metainfo.xml ${FLATPAK_DEST}/share/metainfo/org.gnome.MDViewer.metainfo.xml",
-        "install -Dm644 data/org.gnome.MDViewer.desktop ${FLATPAK_DEST}/share/applications/org.gnome.MDViewer.desktop",
-        "install -Dm644 data/icons/org.gnome.MDViewer.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.gnome.MDViewer.svg"
+        "install -Dm644 data/io.github.hemanth.Marka.metainfo.xml ${FLATPAK_DEST}/share/metainfo/io.github.hemanth.Marka.metainfo.xml",
+        "install -Dm644 marka.desktop ${FLATPAK_DEST}/share/applications/io.github.hemanth.Marka.desktop",
+        "install -Dm644 data/icons/io.github.hemanth.Marka.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/io.github.hemanth.Marka.svg"
       ],
       "sources": [
         {

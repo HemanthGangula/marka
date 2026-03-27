@@ -1,4 +1,4 @@
-"""MDViewer application class — Adw.Application subclass and entry point."""
+"""Marka application class — Adw.Application subclass and entry point."""
 
 import sys
 import gi
@@ -7,14 +7,14 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio
 
-from mdviewer import APP_ID
+from marka import APP_ID
 
 
-class MDViewerApp(Adw.Application):
+class MarkaApp(Adw.Application):
     """Top-level GApplication subclass.
 
     Builds all app-level actions and keyboard accelerators, then delegates
-    to MDViewerWindow for the actual UI.
+    to MarkaWindow for the actual UI.
     """
 
     def __init__(self):
@@ -32,8 +32,8 @@ class MDViewerApp(Adw.Application):
     def do_activate(self):
         """Present (or create) the main window."""
         if not self._window:
-            from mdviewer.window import MDViewerWindow
-            self._window = MDViewerWindow(application=self)
+            from marka.window import MarkaWindow
+            self._window = MarkaWindow(application=self)
         self._window.present()
 
     def do_open(self, files, n_files, hint):
@@ -132,5 +132,5 @@ class MDViewerApp(Adw.Application):
 
 def main():
     """Console-scripts entry point (pip install)."""
-    app = MDViewerApp()
+    app = MarkaApp()
     sys.exit(app.run(sys.argv))
