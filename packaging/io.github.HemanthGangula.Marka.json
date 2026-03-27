@@ -1,5 +1,5 @@
 {
-  "app-id": "io.github.hemanth.Marka",
+  "app-id": "io.github.HemanthGangula.Marka",
   "runtime": "org.gnome.Platform",
   "runtime-version": "47",
   "sdk": "org.gnome.Sdk",
@@ -45,9 +45,9 @@
       "buildsystem": "simple",
       "build-commands": [
         "pip3 install --no-index --prefix=${FLATPAK_DEST} .",
-        "install -Dm644 data/io.github.hemanth.Marka.metainfo.xml ${FLATPAK_DEST}/share/metainfo/io.github.hemanth.Marka.metainfo.xml",
-        "install -Dm644 marka.desktop ${FLATPAK_DEST}/share/applications/io.github.hemanth.Marka.desktop",
-        "install -Dm644 data/icons/io.github.hemanth.Marka.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/io.github.hemanth.Marka.svg"
+        "install -Dm644 data/io.github.HemanthGangula.Marka.metainfo.xml ${FLATPAK_DEST}/share/metainfo/io.github.HemanthGangula.Marka.metainfo.xml",
+        "install -Dm644 marka.desktop ${FLATPAK_DEST}/share/applications/io.github.HemanthGangula.Marka.desktop",
+        "install -Dm644 data/icons/io.github.HemanthGangula.Marka.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/io.github.HemanthGangula.Marka.svg"
       ],
       "sources": [
         {

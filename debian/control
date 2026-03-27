@@ -8,7 +8,7 @@ Build-Depends:
  python3-setuptools,
  dh-python
 Standards-Version: 4.6.2
-Homepage: https://github.com/hemanth/marka
+Homepage: https://github.com/HemanthGangula/marka
 Rules-Requires-Root: no
 
 Package: marka

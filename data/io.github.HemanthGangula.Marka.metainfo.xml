@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.hemanth.Marka</id>
+  <id>io.github.HemanthGangula.Marka</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
 
   <name>Marka</name>
   <summary>Lightweight Markdown viewer and editor</summary>
 
-  <developer id="io.github.hemanth">
+  <developer id="io.github.HemanthGangula">
     <name>Hemanth</name>
   </developer>
 
@@ -33,11 +33,11 @@
     </ul>
   </description>
 
-  <launchable type="desktop-id">io.github.hemanth.Marka.desktop</launchable>
+  <launchable type="desktop-id">io.github.HemanthGangula.Marka.desktop</launchable>
 
-  <url type="homepage">https://github.com/hemanth/marka</url>
-  <url type="bugtracker">https://github.com/hemanth/marka/issues</url>
-  <url type="vcs-browser">https://github.com/hemanth/marka</url>
+  <url type="homepage">https://github.com/HemanthGangula/marka</url>
+  <url type="bugtracker">https://github.com/HemanthGangula/marka/issues</url>
+  <url type="vcs-browser">https://github.com/HemanthGangula/marka</url>
 
   <releases>
     <release version="1.0.0" date="2026-03-27">

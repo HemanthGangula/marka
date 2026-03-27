@@ -80,25 +80,25 @@ chmod +x "$BIN_DIR/marka"
 mkdir -p "$APPS_DIR"
 if [[ -f "$SCRIPT_DIR/marka.desktop" ]]; then
     sed "s|/opt/marka|$INSTALL_DIR|g" "$SCRIPT_DIR/marka.desktop" \
-        > "$APPS_DIR/io.github.hemanth.Marka.desktop"
+        > "$APPS_DIR/io.github.HemanthGangula.Marka.desktop"
     update-desktop-database "$APPS_DIR" 2>/dev/null || true
 else
     echo "WARNING: marka.desktop not found — skipping desktop entry."
 fi
 
 # ── Install AppStream metainfo ────────────────────────────────────────────────
-if [[ -f "$SCRIPT_DIR/data/io.github.hemanth.Marka.metainfo.xml" ]]; then
+if [[ -f "$SCRIPT_DIR/data/io.github.HemanthGangula.Marka.metainfo.xml" ]]; then
     mkdir -p "$METAINFO_DIR"
-    cp "$SCRIPT_DIR/data/io.github.hemanth.Marka.metainfo.xml" \
-       "$METAINFO_DIR/io.github.hemanth.Marka.metainfo.xml"
+    cp "$SCRIPT_DIR/data/io.github.HemanthGangula.Marka.metainfo.xml" \
+       "$METAINFO_DIR/io.github.HemanthGangula.Marka.metainfo.xml"
     echo "AppStream metainfo installed to $METAINFO_DIR"
 else
-    echo "NOTE: data/io.github.hemanth.Marka.metainfo.xml not found — skipping metainfo."
+    echo "NOTE: data/io.github.HemanthGangula.Marka.metainfo.xml not found — skipping metainfo."
 fi
 
 # ── Register MIME type ────────────────────────────────────────────────────────
-xdg-mime default io.github.hemanth.Marka.desktop text/markdown 2>/dev/null || true
-xdg-mime default io.github.hemanth.Marka.desktop text/x-markdown 2>/dev/null || true
+xdg-mime default io.github.HemanthGangula.Marka.desktop text/markdown 2>/dev/null || true
+xdg-mime default io.github.HemanthGangula.Marka.desktop text/x-markdown 2>/dev/null || true
 
 echo ""
 echo "=== Installation complete! ==="

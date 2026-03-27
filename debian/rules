@@ -4,7 +4,7 @@
 
 override_dh_auto_install:
 	dh_auto_install
-	install -Dm644 data/io.github.hemanth.Marka.metainfo.xml \
-		debian/marka/usr/share/metainfo/io.github.hemanth.Marka.metainfo.xml
+	install -Dm644 data/io.github.HemanthGangula.Marka.metainfo.xml \
+		debian/marka/usr/share/metainfo/io.github.HemanthGangula.Marka.metainfo.xml
 	install -Dm644 marka.desktop \
-		debian/marka/usr/share/applications/io.github.hemanth.Marka.desktop
+		debian/marka/usr/share/applications/io.github.HemanthGangula.Marka.desktop

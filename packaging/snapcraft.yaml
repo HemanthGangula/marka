@@ -31,7 +31,7 @@ apps:
       - home
       - removable-media
       - network
-    desktop: usr/share/applications/io.github.hemanth.Marka.desktop
+    desktop: usr/share/applications/io.github.HemanthGangula.Marka.desktop
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/usr/local/lib/python3.10/dist-packages
 
@@ -52,7 +52,7 @@ parts:
       - gir1.2-gtksource-5
     override-build: |
       craftctl default
-      install -Dm644 data/io.github.hemanth.Marka.metainfo.xml \
-        $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/io.github.hemanth.Marka.metainfo.xml
+      install -Dm644 data/io.github.HemanthGangula.Marka.metainfo.xml \
+        $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/io.github.HemanthGangula.Marka.metainfo.xml
       install -Dm644 marka.desktop \
-        $SNAPCRAFT_PART_INSTALL/usr/share/applications/io.github.hemanth.Marka.desktop
+        $SNAPCRAFT_PART_INSTALL/usr/share/applications/io.github.HemanthGangula.Marka.desktop

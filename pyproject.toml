@@ -32,9 +32,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/hemanth/marka"
-"Bug Tracker" = "https://github.com/hemanth/marka/issues"
-"Source Code" = "https://github.com/hemanth/marka"
+Homepage = "https://github.com/HemanthGangula/marka"
+"Bug Tracker" = "https://github.com/HemanthGangula/marka/issues"
+"Source Code" = "https://github.com/HemanthGangula/marka"
 
 [project.scripts]
 marka = "marka.app:main"

@@ -38,7 +38,7 @@ marka
 ### Ubuntu / Debian (PPA)
 
 ```bash
-sudo add-apt-repository ppa:hemanth/marka
+sudo add-apt-repository ppa:HemanthGangula/marka
 sudo apt update
 sudo apt install marka
 ```
@@ -46,8 +46,8 @@ sudo apt install marka
 ### Flatpak
 
 ```bash
-flatpak install flathub io.github.hemanth.Marka
-flatpak run io.github.hemanth.Marka
+flatpak install flathub io.github.HemanthGangula.Marka
+flatpak run io.github.HemanthGangula.Marka
 ```
 
 ### Snap
@@ -60,7 +60,7 @@ marka
 ### Manual / from source
 
 ```bash
-git clone https://github.com/hemanth/marka.git
+git clone https://github.com/HemanthGangula/marka.git
 cd marka
 
 # Install system dependencies (Ubuntu 24.04 Noble)
@@ -115,7 +115,7 @@ python3 -m unittest discover -s tests -v
 ## Contributing
 
 Bug reports and pull requests are welcome at
-https://github.com/hemanth/marka
+https://github.com/HemanthGangula/marka
 
 Please open an issue before submitting large changes.
 

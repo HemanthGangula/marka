@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: marka
 Upstream-Contact: Hemanth <hemanth@example.com>
-Source: https://github.com/hemanth/marka
+Source: https://github.com/HemanthGangula/marka
 
 Files: *
 Copyright: 2026 Hemanth
