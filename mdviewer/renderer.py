@@ -139,9 +139,12 @@ _DEFAULT_ALLOWED_ATTRS = frozenset({"class", "id"})
 _BLOCKED_URL_SCHEMES = re.compile(
     r"^\s*(javascript|vbscript|data)\s*:", re.IGNORECASE
 )
-# Allowed schemes for <a href>
+# Allowed schemes for <a href>.
+# Note: "//" (protocol-relative) is intentionally excluded — it would be
+# resolved relative to the WebKit base URI (file://) and could reach
+# arbitrary hosts.  Use explicit https:// instead.
 _HREF_ALLOWED = re.compile(
-    r"^\s*(https?://|#|/|\.\.?/)", re.IGNORECASE
+    r"^\s*(https?://|#|/(?!/)|\.\.?/)", re.IGNORECASE
 )
 # data: URIs allowed for <img src> — only image subtypes.
 _DATA_IMAGE = re.compile(r"^\s*data:image/", re.IGNORECASE)
@@ -273,7 +276,19 @@ class _HtmlSanitizer(HTMLParser):
 
         if self._strip_depth > 0:
             if tag not in _VOID_TAGS:
-                self._strip_depth -= 1
+                # Guard: never let _strip_depth drop below 1 on a close tag
+                # that was NOT a _STRIP_TAG opener.  Mismatched close tags for
+                # *allowed* tags (e.g. "</div>" inside "<script>…</script>")
+                # would otherwise prematurely reset _strip_depth to 0 and allow
+                # content that follows inside the stripped subtree to leak.
+                if tag in _STRIP_TAGS:
+                    self._strip_depth -= 1
+                elif self._strip_depth > 1:
+                    # Non-strip tag closed inside stripped subtree; was opened
+                    # while inside (handle_starttag incremented depth for it).
+                    self._strip_depth -= 1
+                # else: spurious close tag for an allowed tag whose open was
+                # OUTSIDE the stripped region — do NOT decrement.
             return
 
         # Void tags never have end tags

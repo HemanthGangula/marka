@@ -135,15 +135,24 @@ class MDViewerWindow(Adw.ApplicationWindow):
         self._btn_editor = Gtk.ToggleButton()
         self._btn_editor.set_icon_name("document-edit-symbolic")
         self._btn_editor.set_tooltip_text("Editor only (Ctrl+E)")
+        self._btn_editor.update_property(
+            [Gtk.AccessibleProperty.LABEL], ["Editor only"]
+        )
 
         self._btn_split = Gtk.ToggleButton()
         self._btn_split.set_icon_name("view-dual-symbolic")
         self._btn_split.set_tooltip_text("Split view (Ctrl+Backslash)")
         self._btn_split.set_active(True)  # default mode
+        self._btn_split.update_property(
+            [Gtk.AccessibleProperty.LABEL], ["Split view"]
+        )
 
         self._btn_preview = Gtk.ToggleButton()
         self._btn_preview.set_icon_name("document-preview-symbolic")
         self._btn_preview.set_tooltip_text("Preview only (Ctrl+Shift+E)")
+        self._btn_preview.update_property(
+            [Gtk.AccessibleProperty.LABEL], ["Preview only"]
+        )
 
         # Link as a radio group: only one can be active at a time
         self._btn_editor.set_group(self._btn_split)
@@ -325,6 +334,7 @@ class MDViewerWindow(Adw.ApplicationWindow):
         about = Adw.AboutDialog()
         about.set_application_name(APP_NAME)
         about.set_version(__version__)
+        about.set_developer_name("MD Viewer Contributors")
         about.set_comments(
             "A lightweight Markdown viewer and editor for Linux.\n\n" + sv_note
         )
@@ -337,6 +347,9 @@ class MDViewerWindow(Adw.ApplicationWindow):
         if self.file_manager.is_modified:
             self.file_manager.check_unsaved_changes(callback=self.get_application().quit)
             return True  # suppress default close
+        # Cancel any pending debounce timers before the widget tree is torn down
+        # to prevent GLib timeout callbacks firing on a destroyed GObject.
+        self._editor.cleanup()
         return False
 
     def _on_key_pressed(self, controller, keyval, keycode, state):
@@ -359,9 +372,15 @@ class MDViewerWindow(Adw.ApplicationWindow):
         self._preview.find_next()
 
     def _on_search_stop(self, entry):
-        """Close the find bar and clear highlights."""
+        """Close the find bar and clear highlights, then return focus."""
         self._find_bar.set_search_mode(False)
         self._preview.find_text("")
+        # Return keyboard focus to the appropriate content pane so the user
+        # can continue working without needing to click.
+        if self._view_mode in ("split", "editor"):
+            self._editor._view.grab_focus()
+        else:
+            self._preview._webview.grab_focus()
 
     # ── Zoom ──────────────────────────────────────────────────────────────
 
@@ -384,7 +403,6 @@ class MDViewerWindow(Adw.ApplicationWindow):
         """Save window geometry, paned position, and last open file."""
         width = self.get_width()
         height = self.get_height()
-        paned_pos = self._paned.get_position()
         last_file = None
         if self.file_manager._current_file:
             last_file = self.file_manager._current_file.get_path()
@@ -394,8 +412,14 @@ class MDViewerWindow(Adw.ApplicationWindow):
             settings["window_width"] = width
         if height > 0:
             settings["window_height"] = height
-        if paned_pos > 0:
-            settings["paned_position"] = paned_pos
+        # Only persist the paned position when in split mode.  In editor-only
+        # or preview-only mode the paned widget is effectively collapsed to one
+        # side, so get_position() returns a meaningless value that would corrupt
+        # the saved position used on next launch in split mode.
+        if self._view_mode == "split":
+            paned_pos = self._paned.get_position()
+            if paned_pos > 0:
+                settings["paned_position"] = paned_pos
         settings["last_file"] = last_file
         _cfg.save(settings)
 

@@ -52,7 +52,10 @@ class FileManager:
             files = list(value)
             if files:
                 self.load_gfile(files[0])
-        return True
+                return True
+        # Empty FileList or unexpected type: signal that the drop was NOT handled
+        # so GTK can pass the event to other registered drop targets.
+        return False
 
     # ── New file ──────────────────────────────────────────────────────────
 
@@ -124,6 +127,9 @@ class FileManager:
             return
         path = gfile.get_path()
         if not path:
+            # Gio.File has no local path (e.g. smb://, content:// URIs).
+            # Inform the user rather than silently ignoring the request.
+            self._window.show_toast("Cannot open remote or virtual files.")
             return
         try:
             with open(path, "r", encoding="utf-8", errors="replace") as f:
@@ -303,8 +309,20 @@ class FileManager:
         if not path:
             self._window.show_toast("Export failed: could not determine file path.")
             return
-        # Obtain the full HTML from the preview pane's current render
+        # Obtain the full HTML from the preview pane's current render.
+        # If the preview body is empty the document has never been rendered
+        # (e.g. export triggered immediately after opening a file before the
+        # debounce timer fires).  Force a render from the current editor
+        # content so the exported file is never empty.
         preview = self._window._preview
+        if not preview._current_html_body:
+            text = self._window._editor.get_text()
+            if text.strip():
+                # Use the window's existing renderer instance to force a render
+                # so the exported file is never empty.
+                renderer = getattr(self._window, '_renderer', None)
+                if renderer:
+                    preview._current_html_body = renderer.convert(text)
         html = preview._build_full_html(preview._current_html_body)
         try:
             with open(path, "w", encoding="utf-8") as f:
@@ -333,11 +351,81 @@ class FileManager:
 
     def _on_unsaved_response(self, dialog, response, callback):
         if response == "save":
-            self.save_file()
-            callback()
+            if self._current_file:
+                # Synchronous path: file is known, write it now then continue.
+                self._write_to_file(self._current_file)
+                callback()
+            else:
+                # Async path: no file set yet — show Save As dialog and only
+                # invoke the callback once the dialog completes successfully.
+                # We do NOT call callback() here; it is invoked from within
+                # _save_as_with_callback after a successful write.
+                self._save_as_with_callback(callback)
         elif response == "discard":
             callback()
         # "cancel" -> do nothing
+
+    def _save_as_with_callback(self, callback):
+        """Show Save As dialog, write the file, then call *callback*."""
+        if _HAS_FILE_DIALOG:
+            dialog = Gtk.FileDialog.new()
+            dialog.set_title("Save Markdown File")
+            dialog.set_filters(self._make_filter_list())
+            dialog.set_initial_name("untitled.md")
+            dialog.save(
+                self._window, None,
+                lambda dlg, res: self._on_save_as_callback_finish(dlg, res, callback),
+            )
+        else:
+            dialog = Gtk.FileChooserNative.new(
+                "Save Markdown File",
+                self._window,
+                Gtk.FileChooserAction.SAVE,
+                "_Save",
+                "_Cancel",
+            )
+            dialog.set_current_name("untitled.md")
+            dialog.add_filter(self._make_single_filter())
+            dialog.connect(
+                "response",
+                lambda dlg, resp: self._on_save_as_callback_compat(dlg, resp, callback),
+            )
+            dialog.show()
+
+    def _on_save_as_callback_finish(self, dialog, result, callback):
+        try:
+            gfile = dialog.save_finish(result)
+            self._write_to_file(gfile)
+            self._current_file = gfile
+            path = gfile.get_path()
+            self._window._title_widget.set_subtitle(path or "")
+            self._window._status_bar.update_filename(path)
+            self._window._update_title(False)
+            self.is_modified = False
+            self._add_to_recent(gfile.get_uri())
+            self._refresh_recent_menu()
+            callback()
+        except GLib.Error as e:
+            if e.code != 2:
+                self._window.show_toast(f"Save error: {e.message}")
+            # On cancel or error: do NOT invoke callback — the triggering
+            # action (new/open/close) is abandoned, leaving the document intact.
+
+    def _on_save_as_callback_compat(self, dialog, response, callback):
+        if response == Gtk.ResponseType.ACCEPT:
+            gfile = dialog.get_file()
+            if gfile:
+                self._write_to_file(gfile)
+                self._current_file = gfile
+                path = gfile.get_path()
+                self._window._title_widget.set_subtitle(path or "")
+                self._window._status_bar.update_filename(path)
+                self._window._update_title(False)
+                self.is_modified = False
+                self._add_to_recent(gfile.get_uri())
+                self._refresh_recent_menu()
+                callback()
+        # On cancel: do NOT invoke callback.
 
     # ── Recent files ──────────────────────────────────────────────────────
 
