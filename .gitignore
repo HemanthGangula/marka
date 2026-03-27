@@ -3,6 +3,9 @@
 
 # Snap build artifacts
 snap/.snapcraft/
+snap/parts/
+snap/stage/
+snap/prime/
 parts/
 stage/
 prime/
@@ -164,7 +167,6 @@ debian/files
 debian/*.debhelper.log
 
 # Snap build artifacts
-snap/
 .snapcraft/
 prime/
 stage/
