@@ -1,0 +1,18 @@
+# Pure Python packages — install with: pip install -r requirements.txt
+Markdown>=3.5,<4.0
+pygments>=2.17
+
+# ─── System dependencies (NOT pip-installable) ───────────────────────────────
+# These must be installed via your package manager:
+#
+# Ubuntu / Debian:
+#   sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 \
+#                    gir1.2-webkit-6.0 gir1.2-gtksource-5
+#
+# Fedora / RHEL:
+#   sudo dnf install python3-gobject gtk4 libadwaita \
+#                    webkit2gtk4.1 gtksourceview5
+#
+# Arch Linux:
+#   sudo pacman -S python-gobject gtk4 libadwaita \
+#                  webkit2gtk-4.1 gtksourceview5

@@ -1,0 +1,61 @@
+{
+  "app-id": "org.gnome.MDViewer",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "46",
+  "sdk": "org.gnome.Sdk",
+  "command": "mdviewer",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--filesystem=home",
+    "--talk-name=org.gtk.vfs.*",
+    "--filesystem=xdg-run/gvfsd"
+  ],
+  "modules": [
+    {
+      "name": "python3-markdown",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} Markdown"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/Markdown-3.6.tar.gz",
+          "sha256": "REPLACE_WITH_REAL_SHA256"
+        }
+      ]
+    },
+    {
+      "name": "python3-pygments",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} pygments"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/pygments-2.18.0.tar.gz",
+          "sha256": "REPLACE_WITH_REAL_SHA256"
+        }
+      ]
+    },
+    {
+      "name": "md-viewer",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --prefix=${FLATPAK_DEST} .",
+        "install -Dm644 data/org.gnome.MDViewer.metainfo.xml ${FLATPAK_DEST}/share/metainfo/org.gnome.MDViewer.metainfo.xml",
+        "install -Dm644 data/org.gnome.MDViewer.desktop ${FLATPAK_DEST}/share/applications/org.gnome.MDViewer.desktop",
+        "install -Dm644 data/icons/org.gnome.MDViewer.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.gnome.MDViewer.svg"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        }
+      ]
+    }
+  ]
+}

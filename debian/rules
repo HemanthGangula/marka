@@ -1,0 +1,10 @@
+kk #!/usr/bin/make -f
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_install:
+	dh_auto_install
+	install -Dm644 data/org.gnome.MDViewer.metainfo.xml \
+		debian/md-viewer-gtk/usr/share/metainfo/org.gnome.MDViewer.metainfo.xml
+	install -Dm644 mdviewer.desktop \
+		debian/md-viewer-gtk/usr/share/applications/org.gnome.MDViewer.desktop

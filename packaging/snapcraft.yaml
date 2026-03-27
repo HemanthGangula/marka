@@ -1,0 +1,58 @@
+name: md-viewer-gtk
+base: core22
+version: '1.0.0'
+summary: Lightweight GTK4 Markdown viewer and editor
+description: |
+  MD Viewer is a lightweight, native Linux Markdown viewer and editor built
+  with GTK4 and libadwaita. It renders Markdown in real time with GitHub-style
+  typography, supports syntax-highlighted code blocks, and respects the system
+  light/dark theme automatically.
+
+  Features: live split-pane preview, GtkSourceView syntax highlighting,
+  tables, task lists, footnotes, find-in-document, zoom, print, export to HTML,
+  drag-and-drop, recent files.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+
+layout:
+  /usr/lib/python3/dist-packages:
+    bind: $SNAP/usr/lib/python3/dist-packages
+
+apps:
+  md-viewer-gtk:
+    command: bin/mdviewer
+    extensions: [gnome]
+    plugs:
+      - home
+      - removable-media
+      - network
+    desktop: usr/share/applications/org.gnome.MDViewer.desktop
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/usr/local/lib/python3.10/dist-packages
+
+parts:
+  md-viewer:
+    plugin: python
+    source: ..
+    python-requirements:
+      - requirements.txt
+    build-packages:
+      - python3-dev
+    stage-packages:
+      - python3-gi
+      - python3-gi-cairo
+      - gir1.2-gtk-4.0
+      - gir1.2-adw-1
+      - gir1.2-webkit2-4.1
+      - gir1.2-gtksource-5
+    override-build: |
+      craftctl default
+      install -Dm644 data/org.gnome.MDViewer.metainfo.xml \
+        $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/org.gnome.MDViewer.metainfo.xml
+      install -Dm644 mdviewer.desktop \
+        $SNAPCRAFT_PART_INSTALL/usr/share/applications/org.gnome.MDViewer.desktop
