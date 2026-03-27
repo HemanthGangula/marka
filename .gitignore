@@ -1,6 +1,13 @@
 # Claude Code internals
 .claude/
 
+# Snap build artifacts
+snap/.snapcraft/
+parts/
+stage/
+prime/
+*.snap
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
